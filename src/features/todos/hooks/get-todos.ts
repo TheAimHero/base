@@ -8,7 +8,7 @@ import {
   type UserTodoResType,
 } from '@/features/todos/types/todo';
 
-import { todoQueryKeys } from '../query';
+import { todoQueryKeys } from '../query/todo';
 import { userTodoResSchema } from '../schema/todo';
 
 const fetchTodos = async (params: UserTodoReqType) => {

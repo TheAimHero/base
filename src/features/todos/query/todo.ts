@@ -1,4 +1,4 @@
-import { type UserTodoReqType } from './types/todo';
+import { type UserTodoReqType } from '../types/todo';
 
 export const todoQueryKeys = {
   all: ['todos'] as const,

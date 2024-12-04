@@ -31,7 +31,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 
 import { useCreateTodo } from '../../hooks/create-todo';
-import { todoQueryKeys } from '../../query';
+import { todoQueryKeys } from '../../query/todo';
 import { createTodoReqSchema } from '../../schema/todo';
 
 const formSchema = createTodoReqSchema;
