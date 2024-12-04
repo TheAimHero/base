@@ -6,7 +6,7 @@ import TodoList from '@/features/todos/components/TodoList';
 
 const Page = () => {
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-3'>
+    <div className='grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-4'>
       <div className='sm:col-span-2'>
         <h1 className='flex w-full flex-row items-center p-2 text-3xl font-bold sm:p-4'>
           <HashIcon />
@@ -19,7 +19,6 @@ const Page = () => {
           <HashIcon />
           Add Todos
         </h1>
-
         <TodoCreateForm className='p-2 sm:p-4' />
       </div>
     </div>

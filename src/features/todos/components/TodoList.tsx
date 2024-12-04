@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { AxiosError } from 'axios';
+import { type AxiosError } from 'axios';
 
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
+import PaginationButtons from '@/components/buttons/PaginationButtons';
 
 import { useGetTodos } from '../hooks/get-todos';
 import {
@@ -15,9 +15,9 @@ import {
 import FilterByStatus from './FilterByStatus';
 import FilterByType from './FilterByType';
 import SortBy from './SortBy';
+import TodoCardSkeleton from './static/TodoCardSkeleton';
+import TodoFetchError from './static/TodoFetchError';
 import TodoCard from './TodoCard';
-import TodoCardSkeleton from './TodoCardSkeleton';
-import TodoFetchError from './TodoFetchError';
 
 const PAGE_SIZE = 9;
 
@@ -66,7 +66,7 @@ const TodoList = ({ className }: TodoListProps) => {
           <TodoCard key={index} todo={todo} />
         ))}
       </div>
-      <div className='absolute bottom-0 flex w-full items-center justify-between p-2 px-20 sm:p-4'>
+      <div className='flex w-full flex-1 items-center justify-between p-2 px-20 sm:p-4'>
         {todos.data ? (
           <>
             <div className='flex w-full flex-row items-center justify-between'>
@@ -76,39 +76,28 @@ const TodoList = ({ className }: TodoListProps) => {
                 Pages
               </span>
             </div>
-            <div className='flex w-full flex-row items-center justify-between space-x-2 sm:w-fit sm:flex-row sm:justify-end'>
-              <Button
-                variant='outline'
-                size='sm'
-                onClick={() => {
-                  setPagination((prev) => ({
-                    ...prev,
-                    pageIndex: prev.pageIndex - 1,
-                  }));
-                }}
-                disabled={pagination.pageIndex === 0}
-              >
-                Previous
-              </Button>
-              <Button
-                variant='outline'
-                size='sm'
-                onClick={() => {
-                  setPagination((prev) => ({
-                    ...prev,
-                    pageIndex: prev.pageIndex + 1,
-                  }));
-                }}
-                disabled={
-                  todos.data?.todosCount
-                    ? Math.ceil(todos.data.todosCount / pagination.pageSize) <=
-                      pagination.pageIndex + 1
-                    : false
-                }
-              >
-                Next
-              </Button>
-            </div>
+            <PaginationButtons
+              className='flex w-full justify-end'
+              onPreviousClick={() => {
+                setPagination((prev) => ({
+                  ...prev,
+                  pageIndex: prev.pageIndex - 1,
+                }));
+              }}
+              disablePrevious={pagination.pageIndex === 0}
+              onNextClick={() => {
+                setPagination((prev) => ({
+                  ...prev,
+                  pageIndex: prev.pageIndex + 1,
+                }));
+              }}
+              disableNext={
+                todos.data?.todosCount
+                  ? Math.ceil(todos.data.todosCount / pagination.pageSize) <=
+                    pagination.pageIndex + 1
+                  : false
+              }
+            />
           </>
         ) : null}
       </div>
