@@ -19,21 +19,39 @@ export function getBaseUrl() {
  * @param params An optional object mapping parameter names to values.
  * @returns The built URL as a string.
  */
-export const buildUrl = (
-  baseUrl: string,
-  params?: Record<string, string | number | boolean>,
-) => {
+export const buildUrl = (baseUrl: string, params?: Record<string, unknown>) => {
   const x = getBaseUrl() + baseUrl;
-  console.log(x);
   const url = new URL(x);
   if (params) {
     for (const [key, value] of Object.entries(params)) {
+      if (value === undefined || value === null || value === '') continue;
+      // @hack: this assumes that `value` is never of type Object
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       url.searchParams.append(key, String(value));
     }
+    return url.toString();
   }
   return baseUrl;
 };
 
 export const objectFromParams = (url: URL) => {
-  return Object.fromEntries(url.searchParams);
+  const params = Object.fromEntries(url.searchParams.entries());
+  // Convert string values into their appropriate types
+  const parsedParams = Object.entries(params).reduce(
+    (acc, [key, value]) => {
+      if (value === '' || value === undefined) return acc;
+      // Check if the value is a comma-separated list and parse as an array of numbers
+      if (value.includes(',')) {
+        acc[key] = value
+          .split(',')
+          .map((item) => (isNaN(Number(item)) ? item : Number(item)));
+      } else {
+        // Otherwise, try to parse as a number or leave as a string
+        acc[key] = isNaN(Number(value)) ? value : Number(value);
+      }
+      return acc;
+    },
+    {} as Record<string, unknown>,
+  );
+  return parsedParams;
 };

@@ -13,7 +13,16 @@ export const env = createEnv({
         : z.string().optional(),
     AUTH_GOOGLE_ID: z.string(),
     AUTH_GOOGLE_SECRET: z.string(),
+
     DATABASE_URL: z.string().url(),
+
+    AWS_ACCESS_KEY: z.string(),
+    AWS_SECRET_KEY: z.string(),
+    AWS_REGION: z.string(),
+
+    S3_ENDPOINT: z.string(),
+    S3_BUCKET: z.string(),
+
     NODE_ENV: z
       .enum(['development', 'test', 'production'])
       .default('development'),
@@ -36,7 +45,16 @@ export const env = createEnv({
     AUTH_SECRET: process.env.AUTH_SECRET,
     AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
     AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
+
     DATABASE_URL: process.env.DATABASE_URL,
+
+    AWS_ACCESS_KEY: process.env.BASE_AWS_ACCESS_KEY,
+    AWS_SECRET_KEY: process.env.BASE_AWS_SECRET_KEY,
+    AWS_REGION: process.env.AWS_REGION,
+
+    S3_ENDPOINT: process.env.S3_ENDPOINT,
+    S3_BUCKET: process.env.S3_BUCKET,
+
     NODE_ENV: process.env.NODE_ENV,
   },
   /**

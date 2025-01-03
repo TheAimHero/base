@@ -96,6 +96,7 @@ const config = {
           'src/styles/**/*',
           'src/config/**/*',
           'src/server/**/*',
+          'src/schema/**/*',
           'src/types/**/*',
           'src/env.js',
         ],

@@ -12,6 +12,7 @@ import ThemeProvider from '@/components/providers/ThemeProvider';
 import ToastProvider from '@/components/providers/ToastProvider';
 import AppSidebar from '@/components/Sidebar';
 import Background from '@/components/static/Background';
+import { filesSidebarItems } from '@/features/files/config/sidebar';
 import { todoSidebarItems } from '@/features/todos/config/sidebar';
 
 export const metadata: Metadata = {
@@ -37,7 +38,9 @@ export default function RootLayout({
                 <AuthProvider>
                   <Background>
                     <SidebarProvider>
-                      <AppSidebar items={[todoSidebarItems]} />
+                      <AppSidebar
+                        items={[todoSidebarItems, filesSidebarItems]}
+                      />
                       <div className='h-screen w-screen'>
                         <Navbar />
                         {children}
